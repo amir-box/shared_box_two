@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: amir1docker/flask-hello:1.0.5
+          image: amir1docker/flask-hello:1.0.9
           ports:
             - containerPort: 5000
           env:
