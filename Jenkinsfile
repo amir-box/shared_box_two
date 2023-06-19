@@ -14,6 +14,7 @@ pipeline {
     }
 
     stage('Commit and push changes') {
+      steps {
       script {      
       withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GITLABPASS', usernameVariable: 'GITLABUSER')]) {
                             sh "git remote set-url origin http://${GITLABUSER}:${GITLABPASS}@gitlab.example.com/amir-box/shared_box_two"
@@ -22,6 +23,8 @@ pipeline {
                             sh "git push origin HEAD:main"
                         }
     }
+      }
     }
+    
   }
 }
