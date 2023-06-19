@@ -16,9 +16,7 @@ pipeline {
     stage('Commit and push changes') {
       steps {
       script {      
-      withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GITLABPASS', usernameVariable: 'GITLABUSER')]) {
-        sh 'git config --global user.name "jenkins"'
-sh 'git config --global user.email "jenkins@example.com"'                    
+      withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GITLABPASS', usernameVariable: 'GITLABUSER')]) {                
         sh "git remote set-url origin https://${GITLABPASS}@github.com/amir-box/shared_box_two.git"
                             sh "git add ."
                             sh 'git commit -m "version bump"'
