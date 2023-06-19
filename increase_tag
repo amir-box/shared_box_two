@@ -1,0 +1,17 @@
+#!/bin/bash
+
+new_version="$1"
+deployment_file="flask-hello.yaml"
+
+# Find the line with the image tag in the deployment file
+image_line=$(grep -n "image: .*:.*" "$deployment_file" | cut -d ':' -f 1)
+
+# Extract the current image tag from the deployment file
+old_image_tag=$(awk "NR==$image_line" "$deployment_file" | awk '{print $2}')
+
+# Replace the number after the colon in the image tag
+new_image_tag=$(echo "$old_image_tag" | awk -F: -v version="$new_version" '{$2=version; print $1":"$2}')
+
+# Replace the old image tag with the new image tag in the deployment file
+sed -i "${image_line}s|$old_image_tag|$new_image_tag|" "$deployment_file"
+
