@@ -19,7 +19,7 @@ pipeline {
       withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GITLABPASS', usernameVariable: 'GITLABUSER')]) {
         sh 'git config --global user.name "jenkins"'
 sh 'git config --global user.email "jenkins@example.com"'                    
-        sh "git remote set-url origin http://${GITLABUSER}:${GITLABPASS}@github.com/amir-box/shared_box_two.git"
+        sh "git remote set-url origin https://${GITLABPASS}@github.com/amir-box/shared_box_two.git"
                             sh "git add ."
                             sh 'git commit -m "version bump"'
                             sh "git push origin HEAD:main"
