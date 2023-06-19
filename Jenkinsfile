@@ -14,12 +14,14 @@ pipeline {
     }
 
     stage('Commit and push changes') {
-      steps {
-        git credentialsId: 'github-user', url: 'https://github.com/amir-box/shared_box_two.git'
-        sh 'git add .'
-        sh 'git commit -m "Jenkins pipeline commit"'
-        sh 'git push'
-      }
+      script {      
+      withCredentials([usernamePassword(credentialsId: 'github-user', passwordVariable: 'GITLABPASS', usernameVariable: 'GITLABUSER')]) {
+                            sh "git remote set-url origin http://${GITLABUSER}:${GITLABPASS}@gitlab.example.com/amir-box/shared_box_two"
+                            sh "git add ."
+                            sh 'git commit -m "version bump"'
+                            sh "git push origin HEAD:main"
+                        }
+    }
     }
   }
 }
